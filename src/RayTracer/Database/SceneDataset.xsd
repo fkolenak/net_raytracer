@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SceneDatabase" targetNamespace="http://tempuri.org/Scene.xsd" xmlns:mstns="http://tempuri.org/Scene.xsd" xmlns="http://tempuri.org/Scene.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="SceneDatabase" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="SceneDatabase" msprop:Generator_UserDSName="SceneDatabase">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Scene" msprop:Generator_TableClassName="SceneDataTable" msprop:Generator_TableVarName="tableScene" msprop:Generator_TablePropName="_Scene" msprop:Generator_RowDeletingName="SceneRowDeleting" msprop:Generator_RowChangingName="SceneRowChanging" msprop:Generator_RowEvHandlerName="SceneRowChangeEventHandler" msprop:Generator_RowDeletedName="SceneRowDeleted" msprop:Generator_UserTableName="Scene" msprop:Generator_RowChangedName="SceneRowChanged" msprop:Generator_RowEvArgName="SceneRowChangeEvent" msprop:Generator_RowClassName="SceneRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="minIntensity" msprop:Generator_ColumnVarNameInTable="columnminIntensity" msprop:Generator_ColumnPropNameInRow="minIntensity" msprop:Generator_ColumnPropNameInTable="minIntensityColumn" msprop:Generator_UserColumnName="minIntensity" type="xs:double" default="0.001" minOccurs="0" />
+              <xs:element name="maxDepth" msprop:Generator_ColumnVarNameInTable="columnmaxDepth" msprop:Generator_ColumnPropNameInRow="maxDepth" msprop:Generator_ColumnPropNameInTable="maxDepthColumn" msprop:Generator_UserColumnName="maxDepth" type="xs:int" default="6" minOccurs="0" />
+              <xs:element name="backgroundColor" msprop:Generator_ColumnVarNameInTable="columnbackgroundColor" msprop:Generator_ColumnPropNameInRow="backgroundColor" msprop:Generator_ColumnPropNameInTable="backgroundColorColumn" msprop:Generator_UserColumnName="backgroundColor" type="xs:string" default="0;0;0.25" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Camera" msprop:Generator_TableClassName="CameraDataTable" msprop:Generator_TableVarName="tableCamera" msprop:Generator_TablePropName="Camera" msprop:Generator_RowDeletingName="CameraRowDeleting" msprop:Generator_RowChangingName="CameraRowChanging" msprop:Generator_RowEvHandlerName="CameraRowChangeEventHandler" msprop:Generator_RowDeletedName="CameraRowDeleted" msprop:Generator_UserTableName="Camera" msprop:Generator_RowChangedName="CameraRowChanged" msprop:Generator_RowEvArgName="CameraRowChangeEvent" msprop:Generator_RowClassName="CameraRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="sceneID" msprop:Generator_ColumnVarNameInTable="columnsceneID" msprop:Generator_ColumnPropNameInRow="sceneID" msprop:Generator_ColumnPropNameInTable="sceneIDColumn" msprop:Generator_UserColumnName="sceneID" type="xs:int" minOccurs="0" />
+              <xs:element name="location" msprop:Generator_ColumnVarNameInTable="columnlocation" msprop:Generator_ColumnPropNameInRow="location" msprop:Generator_ColumnPropNameInTable="locationColumn" msprop:Generator_UserColumnName="location" type="xs:string" minOccurs="0" />
+              <xs:element name="direction" msprop:Generator_ColumnVarNameInTable="columndirection" msprop:Generator_ColumnPropNameInRow="direction" msprop:Generator_ColumnPropNameInTable="directionColumn" msprop:Generator_UserColumnName="direction" type="xs:string" minOccurs="0" />
+              <xs:element name="up" msprop:Generator_ColumnVarNameInTable="columnup" msprop:Generator_ColumnPropNameInRow="up" msprop:Generator_ColumnPropNameInTable="upColumn" msprop:Generator_UserColumnName="up" type="xs:string" minOccurs="0" />
+              <xs:element name="fovy" msprop:Generator_ColumnVarNameInTable="columnfovy" msprop:Generator_ColumnPropNameInRow="fovy" msprop:Generator_ColumnPropNameInTable="fovyColumn" msprop:Generator_UserColumnName="fovy" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Light" msprop:Generator_TableClassName="LightDataTable" msprop:Generator_TableVarName="tableLight" msprop:Generator_TablePropName="Light" msprop:Generator_RowDeletingName="LightRowDeleting" msprop:Generator_RowChangingName="LightRowChanging" msprop:Generator_RowEvHandlerName="LightRowChangeEventHandler" msprop:Generator_RowDeletedName="LightRowDeleted" msprop:Generator_UserTableName="Light" msprop:Generator_RowChangedName="LightRowChanged" msprop:Generator_RowEvArgName="LightRowChangeEvent" msprop:Generator_RowClassName="LightRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="sceneID" msprop:Generator_ColumnVarNameInTable="columnsceneID" msprop:Generator_ColumnPropNameInRow="sceneID" msprop:Generator_ColumnPropNameInTable="sceneIDColumn" msprop:Generator_UserColumnName="sceneID" type="xs:int" minOccurs="0" />
+              <xs:element name="location" msprop:Generator_ColumnVarNameInTable="columnlocation" msprop:Generator_ColumnPropNameInRow="location" msprop:Generator_ColumnPropNameInTable="locationColumn" msprop:Generator_UserColumnName="location" type="xs:string" minOccurs="0" />
+              <xs:element name="intensity" msprop:Generator_ColumnVarNameInTable="columnintensity" msprop:Generator_ColumnPropNameInRow="intensity" msprop:Generator_ColumnPropNameInTable="intensityColumn" msprop:Generator_UserColumnName="intensity" type="xs:double" minOccurs="0" />
+              <xs:element name="color" msprop:Generator_ColumnVarNameInTable="columncolor" msprop:Generator_ColumnPropNameInRow="color" msprop:Generator_ColumnPropNameInTable="colorColumn" msprop:Generator_UserColumnName="color" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Sphere" msprop:Generator_TableClassName="SphereDataTable" msprop:Generator_TableVarName="tableSphere" msprop:Generator_TablePropName="Sphere" msprop:Generator_RowDeletingName="SphereRowDeleting" msprop:Generator_RowChangingName="SphereRowChanging" msprop:Generator_RowEvHandlerName="SphereRowChangeEventHandler" msprop:Generator_RowDeletedName="SphereRowDeleted" msprop:Generator_UserTableName="Sphere" msprop:Generator_RowChangedName="SphereRowChanged" msprop:Generator_RowEvArgName="SphereRowChangeEvent" msprop:Generator_RowClassName="SphereRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="sceneID" msprop:Generator_ColumnVarNameInTable="columnsceneID" msprop:Generator_ColumnPropNameInRow="sceneID" msprop:Generator_ColumnPropNameInTable="sceneIDColumn" msprop:Generator_UserColumnName="sceneID" type="xs:int" minOccurs="0" />
+              <xs:element name="location" msprop:Generator_ColumnVarNameInTable="columnlocation" msprop:Generator_ColumnPropNameInRow="location" msprop:Generator_ColumnPropNameInTable="locationColumn" msprop:Generator_UserColumnName="location" type="xs:string" minOccurs="0" />
+              <xs:element name="diameter" msprop:Generator_ColumnVarNameInTable="columndiameter" msprop:Generator_ColumnPropNameInRow="diameter" msprop:Generator_ColumnPropNameInTable="diameterColumn" msprop:Generator_UserColumnName="diameter" type="xs:double" minOccurs="0" />
+              <xs:element name="diffusion" msprop:Generator_ColumnVarNameInTable="columndiffusion" msprop:Generator_ColumnPropNameInRow="diffusion" msprop:Generator_ColumnPropNameInTable="diffusionColumn" msprop:Generator_UserColumnName="diffusion" type="xs:double" minOccurs="0" />
+              <xs:element name="reflection" msprop:Generator_ColumnVarNameInTable="columnreflection" msprop:Generator_ColumnPropNameInRow="reflection" msprop:Generator_ColumnPropNameInTable="reflectionColumn" msprop:Generator_UserColumnName="reflection" type="xs:double" minOccurs="0" />
+              <xs:element name="transparency" msprop:Generator_ColumnVarNameInTable="columntransparency" msprop:Generator_ColumnPropNameInRow="transparency" msprop:Generator_ColumnPropNameInTable="transparencyColumn" msprop:Generator_UserColumnName="transparency" type="xs:double" minOccurs="0" />
+              <xs:element name="color" msprop:Generator_ColumnVarNameInTable="columncolor" msprop:Generator_ColumnPropNameInRow="color" msprop:Generator_ColumnPropNameInTable="colorColumn" msprop:Generator_UserColumnName="color" type="xs:string" minOccurs="0" />
+              <xs:element name="refraction" msprop:Generator_ColumnVarNameInTable="columnrefraction" msprop:Generator_ColumnPropNameInRow="refraction" msprop:Generator_ColumnPropNameInTable="refractionColumn" msprop:Generator_UserColumnName="refraction" type="xs:double" default="1.025" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Block" msprop:Generator_TableClassName="BlockDataTable" msprop:Generator_TableVarName="tableBlock" msprop:Generator_TablePropName="Block" msprop:Generator_RowDeletingName="BlockRowDeleting" msprop:Generator_RowChangingName="BlockRowChanging" msprop:Generator_RowEvHandlerName="BlockRowChangeEventHandler" msprop:Generator_RowDeletedName="BlockRowDeleted" msprop:Generator_UserTableName="Block" msprop:Generator_RowChangedName="BlockRowChanged" msprop:Generator_RowEvArgName="BlockRowChangeEvent" msprop:Generator_RowClassName="BlockRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="sceneID" msprop:Generator_ColumnVarNameInTable="columnsceneID" msprop:Generator_ColumnPropNameInRow="sceneID" msprop:Generator_ColumnPropNameInTable="sceneIDColumn" msprop:Generator_UserColumnName="sceneID" type="xs:int" minOccurs="0" />
+              <xs:element name="locationA" msdata:Caption="location" msprop:Generator_ColumnVarNameInTable="columnlocationA" msprop:Generator_ColumnPropNameInRow="locationA" msprop:Generator_ColumnPropNameInTable="locationAColumn" msprop:Generator_UserColumnName="locationA" type="xs:string" minOccurs="0" />
+              <xs:element name="locationB" msprop:Generator_ColumnVarNameInTable="columnlocationB" msprop:Generator_ColumnPropNameInRow="locationB" msprop:Generator_ColumnPropNameInTable="locationBColumn" msprop:Generator_UserColumnName="locationB" type="xs:string" minOccurs="0" />
+              <xs:element name="diffusion" msprop:Generator_ColumnVarNameInTable="columndiffusion" msprop:Generator_ColumnPropNameInRow="diffusion" msprop:Generator_ColumnPropNameInTable="diffusionColumn" msprop:Generator_UserColumnName="diffusion" type="xs:double" minOccurs="0" />
+              <xs:element name="reflection" msprop:Generator_ColumnVarNameInTable="columnreflection" msprop:Generator_ColumnPropNameInRow="reflection" msprop:Generator_ColumnPropNameInTable="reflectionColumn" msprop:Generator_UserColumnName="reflection" type="xs:double" minOccurs="0" />
+              <xs:element name="transparency" msprop:Generator_ColumnVarNameInTable="columntransparency" msprop:Generator_ColumnPropNameInRow="transparency" msprop:Generator_ColumnPropNameInTable="transparencyColumn" msprop:Generator_UserColumnName="transparency" type="xs:double" minOccurs="0" />
+              <xs:element name="color" msprop:Generator_ColumnVarNameInTable="columncolor" msprop:Generator_ColumnPropNameInRow="color" msprop:Generator_ColumnPropNameInTable="colorColumn" msprop:Generator_UserColumnName="color" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Floor" msprop:Generator_TableClassName="FloorDataTable" msprop:Generator_TableVarName="tableFloor" msprop:Generator_TablePropName="Floor" msprop:Generator_RowDeletingName="FloorRowDeleting" msprop:Generator_RowChangingName="FloorRowChanging" msprop:Generator_RowEvHandlerName="FloorRowChangeEventHandler" msprop:Generator_RowDeletedName="FloorRowDeleted" msprop:Generator_UserTableName="Floor" msprop:Generator_RowChangedName="FloorRowChanged" msprop:Generator_RowEvArgName="FloorRowChangeEvent" msprop:Generator_RowClassName="FloorRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="sceneID" msprop:Generator_ColumnVarNameInTable="columnsceneID" msprop:Generator_ColumnPropNameInRow="sceneID" msprop:Generator_ColumnPropNameInTable="sceneIDColumn" msprop:Generator_UserColumnName="sceneID" type="xs:int" minOccurs="0" />
+              <xs:element name="locationA" msdata:Caption="location" msprop:Generator_ColumnVarNameInTable="columnlocationA" msprop:Generator_ColumnPropNameInRow="locationA" msprop:Generator_ColumnPropNameInTable="locationAColumn" msprop:Generator_UserColumnName="locationA" type="xs:string" minOccurs="0" />
+              <xs:element name="locationB" msprop:Generator_ColumnVarNameInTable="columnlocationB" msprop:Generator_ColumnPropNameInRow="locationB" msprop:Generator_ColumnPropNameInTable="locationBColumn" msprop:Generator_UserColumnName="locationB" type="xs:string" minOccurs="0" />
+              <xs:element name="diffusion" msprop:Generator_ColumnVarNameInTable="columndiffusion" msprop:Generator_ColumnPropNameInRow="diffusion" msprop:Generator_ColumnPropNameInTable="diffusionColumn" msprop:Generator_UserColumnName="diffusion" type="xs:double" minOccurs="0" />
+              <xs:element name="reflection" msprop:Generator_ColumnVarNameInTable="columnreflection" msprop:Generator_ColumnPropNameInRow="reflection" msprop:Generator_ColumnPropNameInTable="reflectionColumn" msprop:Generator_UserColumnName="reflection" type="xs:double" minOccurs="0" />
+              <xs:element name="transparency" msprop:Generator_ColumnVarNameInTable="columntransparency" msprop:Generator_ColumnPropNameInRow="transparency" msprop:Generator_ColumnPropNameInTable="transparencyColumn" msprop:Generator_UserColumnName="transparency" type="xs:double" minOccurs="0" />
+              <xs:element name="color1" msdata:Caption="color" msprop:Generator_ColumnVarNameInTable="columncolor1" msprop:Generator_ColumnPropNameInRow="color1" msprop:Generator_ColumnPropNameInTable="color1Column" msprop:Generator_UserColumnName="color1" type="xs:string" minOccurs="0" />
+              <xs:element name="color2" msprop:Generator_ColumnVarNameInTable="columncolor2" msprop:Generator_ColumnPropNameInRow="color2" msprop:Generator_ColumnPropNameInTable="color2Column" msprop:Generator_UserColumnName="color2" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:Scene" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="Constraint11">
+      <xs:selector xpath=".//mstns:Camera" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="Light_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:Light" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="Sphere_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:Sphere" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="Block_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:Block" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="Floor_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:Floor" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:keyref name="FK_Scene_Floor" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Floor" />
+      <xs:field xpath="mstns:sceneID" />
+    </xs:keyref>
+    <xs:keyref name="FK_Scene_Block" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Block" />
+      <xs:field xpath="mstns:sceneID" />
+    </xs:keyref>
+    <xs:keyref name="FK_Scene_Sphere" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Sphere" />
+      <xs:field xpath="mstns:sceneID" />
+    </xs:keyref>
+    <xs:keyref name="FK_Scene_Light" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Light" />
+      <xs:field xpath="mstns:sceneID" />
+    </xs:keyref>
+    <xs:keyref name="FK_Scene_Camera" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Camera" />
+      <xs:field xpath="mstns:sceneID" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>
