@@ -364,8 +364,7 @@ namespace UI
             base.OnPreviewMouseUp(e);
 
             MainWindow mainWindow = GetMainWindow();
-            mainWindow.FillValues((Shape)DraggedElement);
-
+            mainWindow.FillValues((Shape)DraggedElement, true, false);
             // Reset the field whether the left or right mouse button was 
             // released, in case a context menu was opened on the drag element.
             m_IsDragInProgress = false;

@@ -13,9 +13,9 @@
         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="30">
             <!-- Views buttons-->
             <Label Margin="0,0,5,0">View</Label>
-            <Button x:Name="viewButtonTop" Margin="5,0">Top</Button>
-            <Button x:Name="viewButtonFront" Margin="0,0,5,0">Front</Button>
-            <Button x:Name="viewButtonRight" Margin="0,0,5,0">Right</Button>
+            <Button x:Name="viewButtonFront" Click="viewButtonFront_Click" Margin="0,0,5,0">Front</Button>
+            <Button x:Name="viewButtonTop" Click="viewButtonTop_Click" Margin="5,0">Top</Button>
+            <Button x:Name="viewButtonRight" Click="viewButtonRight_Click" Margin="0,0,5,0">Right</Button>
             <Label Margin="0,0,5,0" BorderThickness="5,0,0,0">Objects</Label>
 
             <local:DropDownButton Content="Select" Checked="DropDownButton_Checked" Padding="1" Margin="0,0,10,0">
@@ -51,44 +51,62 @@
             </Border>
             <WrapPanel Grid.Column="2" Width="300" HorizontalAlignment="Right" ClipToBounds="True">
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
-                    <Label Width="100" Margin="0,0,20,0">Object Name</Label>
+                    <Label Width="100" Margin="0,0,20,0" FontWeight="Bold">Object Name</Label>
                     <Label x:Name="objectName" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></Label>
                 </WrapPanel>
-                <WrapPanel Name="rectangle">
-                    <Label MinWidth="300">Position</Label>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
-                        <Label Width="100" Margin="0,0,20,0">Position X</Label>
-                        <TextBox x:Name="rectanglePositionX" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextBoxTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
-                    </WrapPanel>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
-                        <Label Width="100" Margin="0,0,20,0">Position Y</Label>
-                        <TextBox x:Name="rectanglePositionY" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextBoxTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Padding="0,5,0,0"></TextBox>
-                    </WrapPanel>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
-                        <Label Width="100" Margin="0,0,20,0">Position Z</Label>
-                        <TextBox x:Name="rectanglePositionZ" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextBoxTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
-                    </WrapPanel>
+                <Label MinWidth="300">Position</Label>
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                    <Label Width="100" Margin="0,0,20,0">Position X</Label>
+                    <TextBox x:Name="positionX" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+                </WrapPanel>
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                    <Label Width="100" Margin="0,0,20,0">Position Y</Label>
+                    <TextBox x:Name="positionY" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Padding="0,5,0,0"></TextBox>
+                </WrapPanel>
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                    <Label Width="100" Margin="0,0,20,0">Position Z</Label>
+                    <TextBox x:Name="positionZ" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                </WrapPanel>
+                <WrapPanel Name="rectangleWrapper" Visibility="Hidden">
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
                         <Label Width="100" Margin="0,0,20,0">Width</Label>
-                        <TextBox x:Name="rectangleWidth" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextBoxTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                        <TextBox x:Name="rectangleWidth" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
                         <Label Width="100" Margin="0,0,20,0">Height</Label>
-                        <TextBox x:Name="rectangleHeight" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextBoxTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                        <TextBox x:Name="rectangleHeight" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
                         <Label Width="100" Margin="0,0,20,0">Depth</Label>
-                        <TextBox x:Name="rectangleDepth" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextBoxTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                        <TextBox x:Name="rectangleDepth" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
                     </WrapPanel>
-                    <Separator Width="300" Margin="0,5"/>
+                </WrapPanel>
+                <WrapPanel Name="sphereWrapper" Visibility="Hidden">
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                        <Label Width="100" Margin="0,0,20,0">Diameter</Label>
+                        <TextBox x:Name="diameter" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                    </WrapPanel>
+                </WrapPanel>
+                <Separator Width="300" Margin="0,5"/>
                     <Label MinWidth="300">Properties</Label>
                     <WrapPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,0,0,0">
                         <Label Width="100" Margin="0,0,0,0">Color(R,G,B)</Label>
-                        <TextBox x:Name="ColorR" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged"  Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
-                        <TextBox x:Name="ColorG" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
-                        <TextBox x:Name="ColorB" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
+                        <TextBox x:Name="ColorR" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged"  Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
+                        <TextBox x:Name="ColorG" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
+                        <TextBox x:Name="ColorB" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
                     </WrapPanel>
-                </WrapPanel>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                        <Label Width="100" Margin="0,0,20,0">Diffusion</Label>
+                        <TextBox x:Name="diffusion" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PropertiesTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                        <Label Width="100" Margin="0,0,20,0">Reflection</Label>
+                        <TextBox x:Name="reflection" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PropertiesTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                        <Label Width="100" Margin="0,0,20,0">Transparency</Label>
+                        <TextBox x:Name="transparency" GotFocus="TextBoxGotFocusEventHandler"  PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PropertiesTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
+                    </WrapPanel>
             </WrapPanel>
          </Grid>
     </WrapPanel>

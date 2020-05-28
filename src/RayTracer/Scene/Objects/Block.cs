@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace RayTracer
 {
@@ -13,8 +11,7 @@ namespace RayTracer
         /// <summary>
         /// Points of a block
         /// </summary>
-        Point a, b, c, d, a1, b1, c1, d1;
-
+        public Point a, b, c, d, a1, b1, c1, d1;
         /// <summary>
         /// Rectangles of block
         /// </summary>
@@ -29,18 +26,55 @@ namespace RayTracer
         public Block(int ID, Point min, Point max)
         {
             this.ID = ID;
-            Rectangle rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6;
             rectangles = new List<Rectangle>();
+            SetPosition(min, max);
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="x">x</param>
+        /// <param name="y">y</param>
+        /// <param name="z">z</param>
+        /// <param name="width">width</param>
+        /// <param name="height">height</param>
+        /// <param name="depth">depth</param>
+        public Block(double x, double y, double z, float width, float height, float depth): this(-1, new Point((float)x, (float)y, (float)z), new Point((float) x + width, (float) y + height, (float) z + depth))
+        {}
+
+        /// <summary>
+        /// Sets position
+        /// </summary>
+        /// <param name="x">x</param>
+        /// <param name="y">y</param>
+        /// <param name="z">z</param>
+        /// <param name="width">width</param>
+        /// <param name="height">height</param>
+        /// <param name="depth">depth</param>
+        public void SetPosition(float x, float y, float z, float width, float height, float depth)
+        {
+            this.SetPosition(new Point((float)x, (float)y, (float)z), new Point(x + width, y + height, z + depth));
+        }
+
+        /// <summary>
+        /// Sets position
+        /// </summary>
+        /// <param name="min">Point a / Min</param>
+        /// <param name="max">Point c1 / Max</param>
+        public void SetPosition(Point min, Point max)
+        {
+            Rectangle rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6;
+            rectangles.Clear();
             a = min;
             c1 = max;
 
-            b = new Point(c1.X,a.Y,a.Z);
-            c = new Point(c1.X,c1.Y,a.Z);
-            d = new Point(a.X,c1.Y,a.Z);
+            b = new Point(c1.X, a.Y, a.Z);
+            c = new Point(c1.X, c1.Y, a.Z);
+            d = new Point(a.X, c1.Y, a.Z);
 
-            a1 = new Point(a.X,a.Y,c1.Z);
-            b1 = new Point(c1.X,a.Y,c1.Z);
-            d1 = new Point(a.X,c1.Y,c1.Z);
+            a1 = new Point(a.X, a.Y, c1.Z);
+            b1 = new Point(c1.X, a.Y, c1.Z);
+            d1 = new Point(a.X, c1.Y, c1.Z);
 
             rectangle1 = new Rectangle(1, a, c);
             rectangle2 = new Rectangle(2, b, c1);
@@ -58,11 +92,25 @@ namespace RayTracer
             this.kd = 1f;
             this.ks = 0f;
             this.kt = 0f;
-
         }
 
-        public Block(double x, double y, double z, int width, int height, int depth): this(-1, new Point((float)x, (float)y, (float)z), new Point((float) x + width, (float) y + height, (float) z + depth))
-        {}
+        
+
+        public float getHeight()
+        {
+            return Math.Abs(d.Y - a.Y);
+        }
+
+        public float getWidth()
+        {
+            return Math.Abs(b.X - a.X);
+        }
+
+        public float getDepth()
+        {
+            return Math.Abs(c1.Z - a.Z);
+        }
+
         /// <summary>
         /// Translation of object
         /// </summary>
