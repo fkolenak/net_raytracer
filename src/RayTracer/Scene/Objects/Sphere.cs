@@ -5,7 +5,7 @@ namespace RayTracer
     /// <summary>
     /// Represents a sphere
     /// </summary>
-    class Sphere : AObject
+    public class Sphere : AObject
     {
         //Parameters of sphere
         public float xPos, yPos, zPos, diameter;

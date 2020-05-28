@@ -5,7 +5,7 @@ namespace RayTracer
     /// <summary>
     /// Vector class
     /// </summary>
-    struct Vector
+    public struct Vector
     {
         //Vector atributes
         public float x, y, z, w;

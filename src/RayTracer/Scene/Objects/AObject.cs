@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RayTracer
+﻿namespace RayTracer
 {
     /// <summary>
     /// Abstract object
     /// </summary>
-    abstract class AObject
+    public abstract class AObject
     {
         /// <summary>
         /// Color

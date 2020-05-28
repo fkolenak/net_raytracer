@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RayTracer
 {
-    struct Point
+    public struct Point
     {
         //Coordinates of the point in space
         private float xval, yval, zval;

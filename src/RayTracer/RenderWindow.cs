@@ -15,7 +15,7 @@ namespace RayTracer
     /// <summary>
     /// Represents window to show picture
     /// </summary>
-    public partial class Window : Form
+    public partial class RenderWindow : Form
     {
         /// <summary>
         /// Pixels in picture.
@@ -37,7 +37,7 @@ namespace RayTracer
         /// </summary>
         /// <param name="pictureWidth">Resolution - width.</param>
         /// <param name="pictureHeight">Resolution - height</param>
-        public Window(int pictureWidth = 1280, int pictureHeight = 720)
+        public RenderWindow(int pictureWidth = 1280, int pictureHeight = 720)
         {
             InitializeComponent();
             Resolution = new System.Drawing.Size(pictureWidth, pictureHeight);

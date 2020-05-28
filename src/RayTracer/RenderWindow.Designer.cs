@@ -1,6 +1,6 @@
 ﻿namespace RayTracer
 {
-    partial class Window
+    partial class RenderWindow
     {
         /// <summary>
         /// Required designer variable.

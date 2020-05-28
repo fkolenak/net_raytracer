@@ -1,8 +1,4 @@
-﻿using RayTracer.Database;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Windows.Forms;
+﻿using System;
 
 namespace RayTracer
 {
@@ -11,7 +7,7 @@ namespace RayTracer
         [STAThread]
         public static void Main(string[] args)
         {
-            Parser parser = new Parser();
+            /*Parser parser = new Parser();
             DatabaseHandler databaseHandler = new DatabaseHandler();
             SceneDatabase sceneDatabase = new SceneDatabase();
 
@@ -33,13 +29,13 @@ namespace RayTracer
                 Renderer renderer = new Renderer(scene, scene.allObjects);
                 Console.WriteLine("Raytracing started.");
                 int time = Environment.TickCount;
-                Window window = renderer.Render();
+                RenderWindow window = renderer.Render();
                 time = -time + Environment.TickCount;
                 Console.WriteLine("Raytracing finished.");
                 window.ShowImage();
                 Console.WriteLine("Intersection calculating time: \t" + scene.intersectionCalculationCount + "\nRender time: \t\t" + time + "ms");
                 Application.Run(window);
-            }
+            }*/
         }
     }
 }

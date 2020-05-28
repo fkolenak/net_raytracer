@@ -44,9 +44,9 @@ namespace RayTracer
         /// Render and create window with set pixels
         /// </summary>
         /// <returns>Rendered window</returns>
-        public Window Render()
+        public RenderWindow Render()
         {
-            Window window = new Window(s.width, s.height);
+            RenderWindow window = new RenderWindow(s.width, s.height);
 
             Point cameraPosition = GetCamera().location;
 

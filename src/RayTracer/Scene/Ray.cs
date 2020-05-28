@@ -8,7 +8,7 @@ namespace RayTracer
     /// <summary>
     /// Represents one single ray
     /// </summary>
-    class Ray
+    public class Ray
     {
         /// <summary>
         /// Ray direction

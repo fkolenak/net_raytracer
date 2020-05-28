@@ -5,7 +5,7 @@ namespace RayTracer
     /// <summary>
     /// Represents intersection with a body
     /// </summary>
-    class Intersection
+    public class Intersection
     {
         /// <summary>
         /// Parameter for intersecting beam (where is intersection)

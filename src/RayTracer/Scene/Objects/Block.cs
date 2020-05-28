@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 
 namespace RayTracer
-{   
+{
     /// <summary>
     /// Object represents a block
     /// </summary>
-    class Block : AObject
+    public class Block : AObject
     {
         /// <summary>
         /// Points of a block
@@ -61,6 +61,8 @@ namespace RayTracer
 
         }
 
+        public Block(double x, double y, double z, int width, int height, int depth): this(-1, new Point((float)x, (float)y, (float)z), new Point((float) x + width, (float) y + height, (float) z + depth))
+        {}
         /// <summary>
         /// Translation of object
         /// </summary>
