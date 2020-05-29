@@ -117,7 +117,7 @@ namespace RayTracer
                     window.SetPixel(i, j, c);       //Set color of given pixel
                 }
             });
-            
+            //}
             if (stopRender)
             {
                 return null;

@@ -77,9 +77,9 @@ namespace RayTracer
             d1 = new Point(a.X, c1.Y, c1.Z);
 
             rectangle1 = new Rectangle(1, a, c);
-            rectangle2 = new Rectangle(2, b, c1);
+            rectangle2 = new Rectangle(2, b, b1, c1, c);
             rectangle3 = new Rectangle(3, b1, d1);
-            rectangle4 = new Rectangle(4, a1, d);
+            rectangle4 = new Rectangle(4, a1, a, d, d1);
             rectangle5 = new Rectangle(5, c, d1);
             rectangle6 = new Rectangle(6, a, b1);
             rectangles.Add(rectangle1);

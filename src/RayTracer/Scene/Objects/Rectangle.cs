@@ -48,6 +48,19 @@ namespace RayTracer
             CalculateVectors();
         }
 
+        public Rectangle(int ID, Point a, Point b, Point c, Point d)
+        {
+            this.ID = ID;
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
+            this.kd = 1f;
+            this.ks = 0f;
+            this.kt = 0f;
+            CalculateVectors();
+        }
+
         /// <summary>
         /// Rectangle translation
         /// </summary>
