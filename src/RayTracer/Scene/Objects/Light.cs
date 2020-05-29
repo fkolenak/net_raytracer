@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents point white light
     /// </summary>
-    class Light
+    public class Light
     {
         //Position of light
         public float xPos, yPos, zPos , intensity;

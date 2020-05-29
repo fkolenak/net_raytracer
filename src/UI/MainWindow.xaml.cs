@@ -22,6 +22,9 @@ namespace UI
         private List<Shape> list = new List<Shape>();
         private Dictionary<string, RayTracer.AObject> objects = new Dictionary<string, RayTracer.AObject>();
         private Shape selected;
+        public RayTracer.Light light;
+        public RayTracer.Camera camera;
+        public bool addFloor = false;
 
         private View currentView = View.FRONT;
         private static int rectangleCount = 0;
@@ -36,7 +39,7 @@ namespace UI
         {
             InitializeComponent();
             Button front = (Button)this.FindName("viewButtonFront");
-            front.Foreground = new SolidColorBrush(Colors.Black);
+            front.Foreground = new SolidColorBrush(Colors.Red);
 
             TextBox positionZ, depth;
             positionZ = (TextBox)this.FindName("positionZ");
@@ -52,7 +55,7 @@ namespace UI
         #region Click Events
         private void MenuItem_Settings_Click(object sender, RoutedEventArgs e)
         {
-            Window settings = new Settings();
+            Window settings = new Settings(this);
             settings.Owner = this;
             settings.ShowDialog();
         }

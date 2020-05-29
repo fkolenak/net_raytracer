@@ -8,7 +8,7 @@ namespace RayTracer
     /// <summary>
     /// Object that represents camera object
     /// </summary>
-    class Camera
+    public class Camera
     {
         /// <summary>
         /// Field of view
