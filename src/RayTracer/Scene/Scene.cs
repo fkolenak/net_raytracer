@@ -8,7 +8,7 @@ namespace RayTracer
     /// <summary>
     /// Represents scene - wraps all objects
     /// </summary>
-    class Scene
+    public class Scene
     {
         /// <summary>
         /// ID

@@ -5,7 +5,7 @@ namespace RayTracer
     /// <summary>
     /// Represents floor object (rectangle with chess patern)
     /// </summary>
-    class Floor : AObject
+    public class Floor : AObject
     {
         //Floor edges
         public Point a, b, c, d;

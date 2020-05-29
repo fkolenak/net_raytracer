@@ -7,6 +7,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Globalization;
+using System.Linq;
 
 namespace UI
 {
@@ -38,6 +39,16 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
+            light = new RayTracer.Light(1, new RayTracer.Point(-15, 10, 20));
+            RayTracer.Point point = new RayTracer.Point(5.3368f, 8.0531f, 9.8769f);
+
+            RayTracer.Vector direction = new RayTracer.Vector(-0.38363f, -0.42482f, -0.82f);
+
+            RayTracer.Vector directionUp = new RayTracer.Vector(-0.16485f, 0.90515f, -0.391826f);
+
+            this.camera = new RayTracer.Camera(-1, point, direction, directionUp, 60f);
+
+
             Button front = (Button)this.FindName("viewButtonFront");
             front.Foreground = new SolidColorBrush(Colors.Red);
 
@@ -90,8 +101,45 @@ namespace UI
                 }
             }
         }
+        private void renderButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            if ((string)button.Content == "Render")
+            {
+                RayTracer.Scene scene = CreateScene();
+                if (addFloor)
+                {
+                    RayTracer.Floor floor = new RayTracer.Floor(1, new RayTracer.Point(-10, 0, -10), new RayTracer.Point(10, 0, 10));
+                    floor.SetProperties(0.6f, 0.4f, 0);
+                    floor.SetColors(new RayTracer.Color(0,0,0), new RayTracer.Color(1,1,1));
+                    scene.allObjects.Add(floor);
+                }
+                RayTracer.Renderer renderer = new RayTracer.Renderer(scene, scene.allObjects);
+                Console.WriteLine("Raytracing started.");
+                int time = Environment.TickCount;
+                RayTracer.RenderWindow window = renderer.Render();
+                time = -time + Environment.TickCount;
+                Console.WriteLine("Raytracing finished.");
+                window.ShowImage();
+                Console.WriteLine("Intersection calculating time: \t" + scene.intersectionCalculationCount + "\nRender time: \t\t" + time + "ms");
+                window.ShowDialog();
 
-        
+                button.Content = "Cancel";
+            } else
+            {
+                button.Content = "Render";
+            }
+        }
+
+        private RayTracer.Scene CreateScene()
+        {
+            RayTracer.Scene scene =  new RayTracer.Scene();
+
+            scene.SetLight(this.light);
+            scene.SetCamera(this.camera);
+            scene.allObjects = this.objects.Values.ToList();
+            return scene;
+        }
 
         private void viewButtonFront_Click(object sender, RoutedEventArgs e)
         {
@@ -576,8 +624,7 @@ namespace UI
                     if (currentTextBox.Name == "diameter") {
                         selected.Width = selected.Height = Double.Parse(currentTextBox.Text) * CANVAS_SCALE;
                     }
-                    
-                    
+                    UpdatePositionValues(selected);
                 }
                 catch (Exception) { }
             }
@@ -650,9 +697,7 @@ namespace UI
                         int colorB = Int32.Parse(b.Text);
                         selected.Fill = new SolidColorBrush(Color.FromRgb((byte)colorR, (byte)colorG, (byte)colorB));
                         RayTracer.AObject aObject = objects[selected.Name];
-                        aObject.color.r = (float)(colorR / 256.0);
-                        aObject.color.g = (float)(colorG / 256.0);
-                        aObject.color.b = (float)(colorB / 256.0);
+                        aObject.SetColor((float)(colorR / 256.0), (float)(colorG / 256.0), (float)(colorB / 256.0));
                     }
                 }
                 catch (Exception)

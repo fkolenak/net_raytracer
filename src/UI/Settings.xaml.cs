@@ -63,8 +63,8 @@ namespace UI
                 CameraDirectionX.Text = camera.direction.x.ToString();
                 CameraDirectionY.Text = camera.direction.y.ToString();
                 CameraDirectionZ.Text = camera.direction.z.ToString();
-                CameraDirectionUpX.Text = camera.up.z.ToString();
-                CameraDirectionUpY.Text = camera.up.z.ToString();
+                CameraDirectionUpX.Text = camera.up.x.ToString();
+                CameraDirectionUpY.Text = camera.up.y.ToString();
                 CameraDirectionUpZ.Text = camera.up.z.ToString();
                 fovy.Text = camera.fovy.ToString();
             }

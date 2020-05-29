@@ -1,4 +1,8 @@
-﻿using System;
+﻿using RayTracer.Database;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Windows.Forms;
 
 namespace RayTracer
 {
@@ -7,13 +11,13 @@ namespace RayTracer
         [STAThread]
         public static void Main(string[] args)
         {
-            /*Parser parser = new Parser();
+            Parser parser = new Parser();
             DatabaseHandler databaseHandler = new DatabaseHandler();
             SceneDatabase sceneDatabase = new SceneDatabase();
 
             DatabaseHandler.CreateTestProject(sceneDatabase);
 
-            //databaseHandler.Save(sceneDatabase, ""); // Removed so the xml can be manipulated
+            databaseHandler.Save(sceneDatabase, ""); // Removed so the xml can be manipulated
 
             DataSet data = new DataSet();
             DataTableHelper.ReadXmlIntoDataSet(data, "database.xml");
@@ -35,7 +39,7 @@ namespace RayTracer
                 window.ShowImage();
                 Console.WriteLine("Intersection calculating time: \t" + scene.intersectionCalculationCount + "\nRender time: \t\t" + time + "ms");
                 Application.Run(window);
-            }*/
+            }
         }
     }
 }

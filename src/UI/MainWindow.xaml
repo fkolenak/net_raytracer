@@ -107,7 +107,7 @@
                         <Label Width="100" Margin="0,0,20,0">Transparency</Label>
                         <TextBox x:Name="transparency" GotFocus="TextBoxGotFocusEventHandler"  PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PropertiesTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
                     </WrapPanel>
-                <Button Name="renderButton" Width="280" HorizontalAlignment="Center" Height="50" VerticalAlignment="Bottom" Margin="5,20,5,0" FontSize="16" FontWeight="Bold" >Render</Button>
+                <Button Name="renderButton" Click="renderButton_Click" Width="280" HorizontalAlignment="Center" Height="50" VerticalAlignment="Bottom" Margin="5,34,5,0" FontSize="16" FontWeight="Bold" >Render</Button>
             </WrapPanel>
          </Grid>
     </WrapPanel>
