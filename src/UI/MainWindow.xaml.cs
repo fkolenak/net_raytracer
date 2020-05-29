@@ -183,7 +183,7 @@ namespace UI
             {
                 ts = new CancellationTokenSource();
                 CancellationToken ct = ts.Token;
-                Task.Factory.StartNew((renderButton) =>
+                Task.Factory.StartNew(() =>
                 {
                     RayTracer.Scene scene = CreateScene();
                     if (addFloor)
