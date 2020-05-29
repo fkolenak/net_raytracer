@@ -8,7 +8,7 @@
         Title="MainWindow" Height="600" Width="1200" ResizeMode="NoResize">
     <WrapPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <MenuItem Header="Settings" >Settings</MenuItem>
+            <MenuItem Header="Settings" Click="MenuItem_Settings_Click" >Settings</MenuItem>
         </Menu>
         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="30">
             <!-- Views buttons-->

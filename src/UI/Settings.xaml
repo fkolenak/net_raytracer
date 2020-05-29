@@ -1,0 +1,78 @@
+﻿<Window x:Class="UI.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Settings" Height="558" Width="317" ResizeMode="NoResize">
+    <WrapPanel Orientation="Vertical">
+        <WrapPanel Orientation="Horizontal">
+            <Label FontWeight="Bold">Add Floor</Label>
+            <CheckBox Margin="0,5,0,0" Padding="0,5,0,0"/>
+        </WrapPanel>
+        <WrapPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Stretch" Width="185" FontWeight="Bold">Light</Label>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Position X</Label>
+                <TextBox x:Name="LightPositionX" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="100" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Position Y</Label>
+                <TextBox x:Name="LightPositionY" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Position Z</Label>
+                <TextBox x:Name="LightPositionZ" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+        </WrapPanel>
+        <WrapPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Stretch" Width="185" FontWeight="Bold">Camera</Label>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Position X</Label>
+                <TextBox x:Name="CameraPositionX" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="100" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Position Y</Label>
+                <TextBox x:Name="CameraPositionY" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Position Z</Label>
+                <TextBox x:Name="CameraPositionZ" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0" FontStyle="Italic">Direction X</Label>
+                <TextBox x:Name="CameraDirectionX" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="100" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0" FontStyle="Italic">Direction Y</Label>
+                <TextBox x:Name="CameraDirectionY" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0" FontStyle="Italic">Direction Z</Label>
+                <TextBox x:Name="CameraDirectionZ" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Direction Up X</Label>
+                <TextBox x:Name="CameraDirectionUpX" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="100" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Direction Up Y</Label>
+                <TextBox x:Name="CameraDirectionUpY" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Direction Up Z</Label>
+                <TextBox x:Name="CameraDirectionUpZ" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0" FontStyle="Italic">Field of View</Label>
+                <TextBox x:Name="FOVY" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                <Button x:Name="Save" Width="70" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Height="29">
+                    Save
+                </Button>
+            </WrapPanel>
+        </WrapPanel>
+    </WrapPanel>
+</Window>

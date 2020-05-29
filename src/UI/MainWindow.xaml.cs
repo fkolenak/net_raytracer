@@ -50,6 +50,13 @@ namespace UI
 
         }
         #region Click Events
+        private void MenuItem_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            Window settings = new Settings();
+            settings.Owner = this;
+            settings.ShowDialog();
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (sender.GetType() == typeof(MenuItem))
@@ -724,7 +731,6 @@ namespace UI
             }
         }
 
-
-
+        
     }
 }
