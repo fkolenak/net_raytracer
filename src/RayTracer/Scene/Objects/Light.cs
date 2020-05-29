@@ -8,7 +8,7 @@
         //Position of light
         public float xPos, yPos, zPos , intensity;
         // Color of light
-        public Color color;
+        public Color color = new Color(1,1,1);
         //ID
         public int ID;
 

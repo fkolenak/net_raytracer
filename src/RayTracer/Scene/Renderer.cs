@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RayTracer
 {
-    class Renderer
+    public class Renderer
     {
         /// <summary>
         /// Constant to maintain darkness of shadow 
@@ -15,6 +15,7 @@ namespace RayTracer
         /// </summary>
         private const int power = 100;
 
+        public bool stopRender = false;
         /// <summary>
         /// Scene to render
         /// </summary>
@@ -60,10 +61,15 @@ namespace RayTracer
             float dx = w / width;
             float dy = h / height;
 
+            //for (int i = 0; i < height; i++)
             Parallel.For(0, height, i =>      //Cycle
             {
                 for (int j = 0; j < width; j++)    //Cycle
                 {
+                    if (stopRender)
+                    {
+                        break;
+                    }
                     Intersection p;
                     Color c;
 
@@ -111,6 +117,11 @@ namespace RayTracer
                     window.SetPixel(i, j, c);       //Set color of given pixel
                 }
             });
+            
+            if (stopRender)
+            {
+                return null;
+            }
             return window;
         }
 
@@ -132,7 +143,7 @@ namespace RayTracer
                 c = renderedObjects[p.indexOfCrossedObj].GetColor(p.pointOfIntersection);
 
                 Ray ray2 = new Ray(p.pointOfIntersection, new Vector(s.light.xPos - (p.pointOfIntersection.X), s.light.yPos - (p.pointOfIntersection.Y), s.light.zPos - (p.pointOfIntersection.Z))); // Paprsek z pruseciku do svetla
-
+                ray2.direction.Normalize();
                 Intersection swadowIntersection = null;
 
 

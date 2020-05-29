@@ -82,7 +82,10 @@ namespace RayTracer
             {
                 scene.allObjects.Add(block);
             }
-            scene.allObjects.Add(floor);
+            if (floor != null)
+            {
+                scene.allObjects.Add(floor);
+            }
             foreach (Sphere sphere in spheres)
             {
                 scene.allObjects.Add(sphere);
