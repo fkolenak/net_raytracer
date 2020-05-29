@@ -354,10 +354,10 @@ namespace RayTracer
 
                 if (intersection != null)
                 {
-                    if (directinControl.Magnitude() < intersection.t)       //Check if the object is not behind light
-                    {
+                    /*if (directinControl.Magnitude() < intersection.t)       //Check if the object is not behind light
+                    { // TODO Might be problem if the object is behind light!!
                         continue;
-                    }
+                    }*/
                     if (intersection.t > 0.001 && intersection.kt != 1)
                     {
                         if (intersection.t2 < 0.001 && intersection.t2 > -0.001)

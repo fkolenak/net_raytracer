@@ -360,12 +360,12 @@ namespace UI
                 UpdatePositionValues(shape);
                 RayTracer.Block block = (RayTracer.Block)objects[rectangle.Name];
                 
-                positionX.Text = block.a.X.ToString();
-                positionY.Text = block.a.Y.ToString();
-                positionZ.Text = block.a.Z.ToString();
-                width.Text = block.getWidth().ToString();
-                height.Text = block.getHeight().ToString();
-                depth.Text = block.getDepth().ToString();
+                positionX.Text = block.a.X.ToString().Replace(',', '.');
+                positionY.Text = block.a.Y.ToString().Replace(',', '.');
+                positionZ.Text = block.a.Z.ToString().Replace(',', '.');
+                width.Text = block.getWidth().ToString().Replace(',', '.');
+                height.Text = block.getHeight().ToString().Replace(',', '.');
+                depth.Text = block.getDepth().ToString().Replace(',', '.');
             }
             else if (shape.GetType() == typeof(Ellipse))
             {
@@ -377,10 +377,10 @@ namespace UI
                 UpdatePositionValues(shape);
 
                 RayTracer.Sphere sphere = (RayTracer.Sphere)objects[ellipse.Name];                
-                positionX.Text = sphere.xPos.ToString();
-                positionY.Text = sphere.yPos.ToString();
-                positionZ.Text = sphere.zPos.ToString();
-                diameter.Text = sphere.diameter.ToString();
+                positionX.Text = sphere.xPos.ToString().Replace(',', '.');
+                positionY.Text = sphere.yPos.ToString().Replace(',', '.');
+                positionZ.Text = sphere.zPos.ToString().Replace(',', '.');
+                diameter.Text = sphere.diameter.ToString().Replace(',', '.');
             }
             FillProperties(shape);
         }
@@ -465,12 +465,12 @@ namespace UI
             transparency = (TextBox)this.FindName("transparency");
 
             RayTracer.AObject aObject = objects[shape.Name];
-            r.Text = (aObject.color.r * 256).ToString();
-            g.Text = (aObject.color.g * 256).ToString();
-            b.Text = (aObject.color.b * 256).ToString();
-            diffusion.Text = aObject.kd.ToString();
-            reflection.Text = aObject.ks.ToString();
-            transparency.Text = aObject.kt.ToString();
+            r.Text = (aObject.color.r * 256).ToString().Replace(',', '.');
+            g.Text = (aObject.color.g * 256).ToString().Replace(',', '.');
+            b.Text = (aObject.color.b * 256).ToString().Replace(',', '.');
+            diffusion.Text = aObject.kd.ToString().Replace(',', '.');
+            reflection.Text = aObject.ks.ToString().Replace(',', '.');
+            transparency.Text = aObject.kt.ToString().Replace(',', '.');
         }
 
         private void SetObjectNameLabel(string name)
@@ -513,27 +513,6 @@ namespace UI
             }
         }
 
-        private void TextBoxTextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox currentTextBox = (TextBox)sender;
-            if (this.previousTextBox == currentTextBox)
-            {
-                try
-                {
-                    Double.Parse(currentTextBox.Text, CultureInfo.InvariantCulture);
-                }
-                catch (Exception)
-                {
-                    if (!(currentTextBox.Text == "-" || currentTextBox.Text == ""))
-                    {
-                        currentTextBox.Text = previousString;
-                        e.Handled = true;
-                    }
-                }
-            }
-            this.previousTextBox = (TextBox)sender;
-        }
-
         private void PositionTextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox currentTextBox = (TextBox)sender;
@@ -543,6 +522,10 @@ namespace UI
                 try
                 {
                     Double.Parse(currentTextBox.Text, CultureInfo.InvariantCulture);
+                    if (currentTextBox.Text.Contains(','))
+                    {
+                        currentTextBox.Text = currentTextBox.Text.Replace(',', '.');
+                    }
                 }
                 catch (Exception)
                 {
@@ -550,7 +533,7 @@ namespace UI
                     {
                         currentTextBox.Text = previousString;
                         changed = true;
-                    }
+                    } 
                 }
             }
 
@@ -558,7 +541,7 @@ namespace UI
             {
                 try
                 {
-                    double value = Double.Parse(currentTextBox.Text) * CANVAS_SCALE;
+                    double value = Double.Parse(currentTextBox.Text, CultureInfo.InvariantCulture) * CANVAS_SCALE;
                     if (selected.GetType() == typeof(Ellipse))
                     {
                         value = value - (selected.Width / 2.0);
@@ -622,7 +605,7 @@ namespace UI
                         }
                     }
                     if (currentTextBox.Name == "diameter") {
-                        selected.Width = selected.Height = Double.Parse(currentTextBox.Text) * CANVAS_SCALE;
+                        selected.Width = selected.Height = Double.Parse(currentTextBox.Text, CultureInfo.InvariantCulture) * CANVAS_SCALE;
                     }
                     UpdatePositionValues(selected);
                 }
@@ -641,6 +624,10 @@ namespace UI
                 try
                 {
                     double parsed = Double.Parse(currentTextBox.Text, CultureInfo.InvariantCulture);
+                    if (currentTextBox.Text.Contains(','))
+                    {
+                        currentTextBox.Text = currentTextBox.Text.Replace(',', '.');
+                    }
                     if (parsed < 0 || parsed > 1)
                     {
                         currentTextBox.Text = previousString;
