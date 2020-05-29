@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+        Title="MainWindow" Height="600" Width="1200" ResizeMode="NoResize">
     <WrapPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <MenuItem Header="Settings" >Settings</MenuItem>
@@ -91,9 +91,9 @@
                     <Label MinWidth="300">Properties</Label>
                     <WrapPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,0,0,0">
                         <Label Width="100" Margin="0,0,0,0">Color(R,G,B)</Label>
-                        <TextBox x:Name="ColorR" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged"  Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
-                        <TextBox x:Name="ColorG" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
-                        <TextBox x:Name="ColorB" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="TextBoxTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
+                        <TextBox x:Name="ColorR" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="ColorTextChanged"  Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
+                        <TextBox x:Name="ColorG" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="ColorTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
+                        <TextBox x:Name="ColorB" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="ColorTextChanged" Width="50" HorizontalAlignment="Right" MinWidth="50"></TextBox>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
                         <Label Width="100" Margin="0,0,20,0">Diffusion</Label>
@@ -107,6 +107,7 @@
                         <Label Width="100" Margin="0,0,20,0">Transparency</Label>
                         <TextBox x:Name="transparency" GotFocus="TextBoxGotFocusEventHandler"  PreviewTextInput="DoubleNumberValidationTextBox" TextChanged="PropertiesTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150"></TextBox>
                     </WrapPanel>
+                <Button Name="renderButton" Width="280" HorizontalAlignment="Center" Height="50" VerticalAlignment="Bottom" Margin="5,20,5,0" FontSize="16" FontWeight="Bold" >Render</Button>
             </WrapPanel>
          </Grid>
     </WrapPanel>

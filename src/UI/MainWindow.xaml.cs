@@ -7,8 +7,6 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Globalization;
-using System.IO;
-using System.Net.Http.Headers;
 
 namespace UI
 {
@@ -154,7 +152,10 @@ namespace UI
             DragCanvas canvas = (DragCanvas)this.FindName("canvas");
             Rectangle rect = new Rectangle();
             rect.Stroke = new SolidColorBrush(Colors.Black);
-            rect.Fill = new SolidColorBrush(Color.FromRgb((byte)rnd.Next(256), (byte)rnd.Next(256), (byte)rnd.Next(256)));
+            int r = rnd.Next(256);
+            int g = rnd.Next(256);
+            int b = rnd.Next(256);
+            rect.Fill = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
             rect.Width = 100;
             rect.Height = 50;
             rect.Name = "Rectangle" + rectangleCount;
@@ -172,6 +173,7 @@ namespace UI
             {
                 block = new RayTracer.Block(0, 0, 0, 5, (int)rect.Height, (int)rect.Width);
             }
+            block.SetColor((float)(r / 256.0), (float)(g / 256.0), (float)(b / 256.0));
             objects[rect.Name] = block;
 
             Canvas.SetLeft(rect, 0);
@@ -187,13 +189,17 @@ namespace UI
             DragCanvas canvas = (DragCanvas)this.FindName("canvas");
             Ellipse ellipse = new Ellipse();
             ellipse.Stroke = new SolidColorBrush(Colors.Black);
-            ellipse.Fill = new SolidColorBrush(Color.FromRgb((byte)rnd.Next(256), (byte)rnd.Next(256), (byte)rnd.Next(256)));
+            int r = rnd.Next(256);
+            int g = rnd.Next(256);
+            int b = rnd.Next(256);
+            ellipse.Fill = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
             float diameter = 50;
             ellipse.Width = diameter;
             ellipse.Height = diameter;
             ellipse.Name = "Ellipse" + ellipseCount;
 
             RayTracer.Sphere sphere = new RayTracer.Sphere(-1, new RayTracer.Point(2.5f, 2.5f, 2.5f), diameter);
+            sphere.SetColor((float)(r / 256.0), (float)(g / 256.0), (float)(b / 256.0));
             objects[ellipse.Name] = sphere;
 
             Canvas.SetLeft(ellipse, 0);
@@ -263,6 +269,7 @@ namespace UI
             positionY = (TextBox)this.FindName("positionY");
             positionZ = (TextBox)this.FindName("positionZ");
 
+            
             if (shape.GetType() == typeof(Rectangle))
             {   
                 Rectangle rectangle = (Rectangle)shape;
@@ -371,7 +378,21 @@ namespace UI
 
         private void FillProperties(Shape shape)
         {
+            TextBox r, g, b, reflection, diffusion, transparency;
+            r = (TextBox)this.FindName("ColorR");
+            g = (TextBox)this.FindName("ColorG");
+            b = (TextBox)this.FindName("ColorB");
+            diffusion = (TextBox)this.FindName("diffusion");
+            reflection = (TextBox)this.FindName("reflection");
+            transparency = (TextBox)this.FindName("transparency");
 
+            RayTracer.AObject aObject = objects[shape.Name];
+            r.Text = (aObject.color.r * 256).ToString();
+            g.Text = (aObject.color.g * 256).ToString();
+            b.Text = (aObject.color.b * 256).ToString();
+            diffusion.Text = aObject.kd.ToString();
+            reflection.Text = aObject.ks.ToString();
+            transparency.Text = aObject.kt.ToString();
         }
 
         private void SetObjectNameLabel(string name)
@@ -543,10 +564,25 @@ namespace UI
                 try
                 {
                     double parsed = Double.Parse(currentTextBox.Text, CultureInfo.InvariantCulture);
-                    if (parsed < 0 && parsed > 1)
+                    if (parsed < 0 || parsed > 1)
                     {
                         currentTextBox.Text = previousString;
                         e.Handled = true;
+                    }
+                    else
+                    {
+                        TextBox diffusion, reflection, transparency;
+                        diffusion = (TextBox)this.FindName("diffusion");
+                        reflection = (TextBox)this.FindName("reflection");
+                        transparency = (TextBox)this.FindName("transparency");
+                        float d = (float)Double.Parse(diffusion.Text, CultureInfo.InvariantCulture);
+                        float r = (float)Double.Parse(reflection.Text, CultureInfo.InvariantCulture);
+                        float t = (float)Double.Parse(transparency.Text, CultureInfo.InvariantCulture);
+
+                        RayTracer.AObject aObject = objects[selected.Name];
+                        aObject.kd = d;
+                        aObject.ks = r;
+                        aObject.kt = t;
                     }
                 }
                 catch (Exception)
@@ -569,10 +605,24 @@ namespace UI
                 try
                 {
                     int parsed = Int32.Parse(currentTextBox.Text, CultureInfo.InvariantCulture);
-                    if (parsed < 0 && parsed > 255)
+                    if (parsed < 0 || parsed > 255)
                     {
                         currentTextBox.Text = previousString;
                         e.Handled = true;
+                    } else
+                    {
+                        TextBox r, g, b;
+                        r = (TextBox)this.FindName("ColorR");
+                        g = (TextBox)this.FindName("ColorG");
+                        b = (TextBox)this.FindName("ColorB");
+                        int colorR = Int32.Parse(r.Text);
+                        int colorG = Int32.Parse(g.Text);
+                        int colorB = Int32.Parse(b.Text);
+                        selected.Fill = new SolidColorBrush(Color.FromRgb((byte)colorR, (byte)colorG, (byte)colorB));
+                        RayTracer.AObject aObject = objects[selected.Name];
+                        aObject.color.r = (float)(colorR / 256.0);
+                        aObject.color.g = (float)(colorG / 256.0);
+                        aObject.color.b = (float)(colorB / 256.0);
                     }
                 }
                 catch (Exception)
@@ -584,6 +634,7 @@ namespace UI
                     }
                 }
             }
+
             this.previousTextBox = (TextBox)sender;
         }
 
