@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="Settings" Height="558" Width="317" ResizeMode="NoResize">
-    <WrapPanel Orientation="Vertical">
+        Title="Settings" Height="644" Width="317" ResizeMode="NoResize">
+    <WrapPanel Orientation="Vertical" Margin="0,0,0,-84">
         <WrapPanel Orientation="Horizontal" Margin="5,0,0,0">
             <Label FontWeight="Bold">Add Floor</Label>
             <CheckBox Checked="CheckBox_Checked" Name="addFloor" Margin="0,5,0,0" Padding="0,5,0,0"/>
@@ -67,6 +67,15 @@
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
                 <Label Width="90" Margin="0,0,20,0" FontStyle="Italic">Field of View</Label>
                 <TextBox x:Name="FOVY" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="PositionTextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <Label VerticalAlignment="Stretch" Width="185" FontWeight="Bold">Render dimensions</Label>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Render Width</Label>
+                <TextBox x:Name="renderWidth" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="renderWidth_TextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,5,0,0">
+                <Label Width="90" Margin="0,0,20,0">Render Height</Label>
+                <TextBox x:Name="renderHeight" GotFocus="TextBoxGotFocusEventHandler" PreviewTextInput="IntNumberValidationTextBox" TextChanged="renderHeight_TextChanged" Width="150" HorizontalAlignment="Right" MinWidth="150" Margin="0" Padding="0,5,0,0"></TextBox>
             </WrapPanel>
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
                 <Button x:Name="Save" Click="Save_Click" Width="70" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Height="29" Margin="190,0,0,0">

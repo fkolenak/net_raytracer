@@ -45,6 +45,8 @@ namespace UI
             TextBox CameraDirectionUpY = (TextBox)this.FindName("CameraDirectionUpY");
             TextBox CameraDirectionUpZ = (TextBox)this.FindName("CameraDirectionUpZ");
             TextBox fovy = (TextBox)this.FindName("FOVY");
+            TextBox renderWidth = (TextBox)this.FindName("renderWidth");
+            TextBox renderHeigth = (TextBox)this.FindName("renderHeight");
             addFloor.IsChecked = mainWindow.addFloor;
 
             if (mainWindow.light != null)
@@ -68,6 +70,8 @@ namespace UI
                 CameraDirectionUpZ.Text = camera.up.z.ToString();
                 fovy.Text = camera.fovy.ToString();
             }
+            renderWidth.Text = mainWindow.RenderWidth.ToString(CultureInfo.InvariantCulture);
+            renderHeigth.Text = mainWindow.RenderHeight.ToString(CultureInfo.InvariantCulture);
         }
 
         private void TextBoxGotFocusEventHandler(object sender, RoutedEventArgs e)
@@ -199,6 +203,8 @@ namespace UI
             TextBox CameraDirectionUpY = (TextBox)this.FindName("CameraDirectionUpY");
             TextBox CameraDirectionUpZ = (TextBox)this.FindName("CameraDirectionUpZ");
             TextBox fovy = (TextBox)this.FindName("FOVY");
+            TextBox renderWidth = (TextBox)this.FindName("renderWidth");
+            TextBox renderHeigth = (TextBox)this.FindName("renderHeight");
 
             if (lightPositionX.Text == "")
             {
@@ -327,6 +333,25 @@ namespace UI
             {
                 fovy.BorderBrush = new SolidColorBrush(Colors.Black);
             }
+
+            if (renderHeight.Text == "")
+            {
+                renderHeight.BorderBrush = new SolidColorBrush(Colors.Red);
+                hasError = true;
+            }
+            else
+            {
+                renderHeight.BorderBrush = new SolidColorBrush(Colors.Black);
+            }
+            if (renderWidth.Text == "")
+            {
+                renderWidth.BorderBrush = new SolidColorBrush(Colors.Red);
+                hasError = true;
+            }
+            else
+            {
+                renderWidth.BorderBrush = new SolidColorBrush(Colors.Black);
+            }
             return hasError;
         }
 
@@ -334,6 +359,26 @@ namespace UI
         {
             CheckBox checkBox = (CheckBox)sender;
             this.mainWindow.addFloor = (bool)checkBox.IsChecked;
+        }
+
+        private void renderWidth_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                int width = Int32.Parse(((TextBox)sender).Text);
+                this.mainWindow.RenderWidth = width;
+            }
+            catch (Exception) { }
+        }
+
+        private void renderHeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                int heigth = Int32.Parse(((TextBox)sender).Text);
+                this.mainWindow.RenderHeight = heigth;
+            }
+            catch (Exception) { }
         }
     }
 }

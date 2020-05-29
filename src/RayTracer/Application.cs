@@ -13,11 +13,11 @@ namespace RayTracer
         {
             Parser parser = new Parser();
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            SceneDatabase sceneDatabase = new SceneDatabase();
+            //SceneDatabase sceneDatabase = new SceneDatabase();
 
-            DatabaseHandler.CreateTestProject(sceneDatabase);
+            //DatabaseHandler.CreateTestProject(sceneDatabase);
 
-            DatabaseHandler.Save(sceneDatabase, ""); // Removed so the xml can be manipulated
+            //DatabaseHandler.Save(sceneDatabase, ""); // Removed so the xml can be manipulated
 
             DataSet data = new DataSet();
             DataTableHelper.ReadXmlIntoDataSet(data, "database.xml");

@@ -31,7 +31,8 @@ namespace UI
         public RayTracer.Light light;
         public RayTracer.Camera camera;
         public bool addFloor = false;
-
+        public int RenderWidth = 1280;
+        public int RenderHeight = 720;
         private CancellationTokenSource ts;
         
         private View currentView = View.FRONT;
@@ -182,7 +183,7 @@ namespace UI
             {
                 ts = new CancellationTokenSource();
                 CancellationToken ct = ts.Token;
-                Task.Factory.StartNew(() =>
+                Task.Factory.StartNew((renderButton) =>
                 {
                     RayTracer.Scene scene = CreateScene();
                     if (addFloor)
@@ -193,6 +194,8 @@ namespace UI
                         scene.allObjects.Add(floor);
                     }
                     RayTracer.Renderer renderer = new RayTracer.Renderer(scene, scene.allObjects);
+                    scene.width = RenderWidth;
+                    scene.height = RenderHeight;
                     renderer.ct = ct;
                     Console.WriteLine("Raytracing started.");
                     int time = Environment.TickCount;
