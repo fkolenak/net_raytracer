@@ -8,6 +8,11 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+using System.IO;
+using System.Data;
+using RayTracer;
 
 namespace UI
 {
@@ -27,6 +32,8 @@ namespace UI
         public RayTracer.Camera camera;
         public bool addFloor = false;
 
+        private CancellationTokenSource ts;
+        
         private View currentView = View.FRONT;
         private static int rectangleCount = 0;
         private static int ellipseCount = 0;
@@ -58,7 +65,11 @@ namespace UI
             depth = (TextBox)this.FindName("rectangleDepth");
             depth.IsEnabled = false;
         }
-
+        /// <summary>
+        /// Needed for dropdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DropDownButton_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -69,6 +80,68 @@ namespace UI
             Window settings = new Settings(this);
             settings.Owner = this;
             settings.ShowDialog();
+        }
+
+        private void MenuItem_Save_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+
+            saveFileDialog1.Filter = "|*.xml";
+            saveFileDialog1.Title = "Save database";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                RayTracer.Scene scene = CreateScene();
+                RayTracer.Database.DatabaseHandler.Save(scene, saveFileDialog1.FileName);
+            }
+        }
+
+        private void MenuItem_Load_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog fDialog = new System.Windows.Forms.OpenFileDialog();
+
+            if (fDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+            string filename = fDialog.FileName;
+            DataSet data = new DataSet();
+            RayTracer.Parser parser = new RayTracer.Parser();
+
+            RayTracer.Database.DataTableHelper.ReadXmlIntoDataSet(data, filename);
+            List<RayTracer.Scene> scenes = parser.LoadScene(data);
+            addFloor = false;
+            DragCanvas canvas = (DragCanvas)this.FindName("canvas");
+            canvas.Children.Clear();
+            objects.Clear();
+            ContextMenu contextMenu = (ContextMenu)this.FindName("selectContextMenu");
+            contextMenu.Items.Clear();
+
+
+            foreach (Scene scene in scenes)
+            {
+                this.camera = scene.camera;
+                this.light = scene.light;
+                
+                foreach (AObject aObject in scene.allObjects)
+                {
+                    if (aObject.GetType() == typeof(RayTracer.Floor))
+                    {
+                        addFloor = true;
+                    } else if (aObject.GetType() == typeof(RayTracer.Block))
+                    {
+                        CreateBlock((RayTracer.Block)aObject);
+                    }
+                    else if (aObject.GetType() == typeof(RayTracer.Sphere))
+                    {
+                        CreateEllipse((RayTracer.Sphere)aObject);
+                    }
+                }
+                
+                break;
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -96,6 +169,7 @@ namespace UI
                     if (shape.Name == (string)menuItem.Header)
                     {
                         SelectItem(shape);
+                        FillValues(shape,false,true);
                         break;
                     }
                 }
@@ -106,27 +180,38 @@ namespace UI
             Button button = (Button)sender;
             if ((string)button.Content == "Render")
             {
-                RayTracer.Scene scene = CreateScene();
-                if (addFloor)
+                ts = new CancellationTokenSource();
+                CancellationToken ct = ts.Token;
+                Task.Factory.StartNew(() =>
                 {
-                    RayTracer.Floor floor = new RayTracer.Floor(1, new RayTracer.Point(-10, 0, -10), new RayTracer.Point(10, 0, 10));
-                    floor.SetProperties(0.6f, 0.4f, 0);
-                    floor.SetColors(new RayTracer.Color(0,0,0), new RayTracer.Color(1,1,1));
-                    scene.allObjects.Add(floor);
-                }
-                RayTracer.Renderer renderer = new RayTracer.Renderer(scene, scene.allObjects);
-                Console.WriteLine("Raytracing started.");
-                int time = Environment.TickCount;
-                RayTracer.RenderWindow window = renderer.Render();
-                time = -time + Environment.TickCount;
-                Console.WriteLine("Raytracing finished.");
-                window.ShowImage();
-                Console.WriteLine("Intersection calculating time: \t" + scene.intersectionCalculationCount + "\nRender time: \t\t" + time + "ms");
-                window.ShowDialog();
-
+                    RayTracer.Scene scene = CreateScene();
+                    if (addFloor)
+                    {
+                        RayTracer.Floor floor = new RayTracer.Floor(1, new RayTracer.Point(-10, 0, -10), new RayTracer.Point(10, 0, 10));
+                        floor.SetProperties(0.6f, 0.4f, 0);
+                        floor.SetColors(new RayTracer.Color(0, 0, 0), new RayTracer.Color(1, 1, 1));
+                        scene.allObjects.Add(floor);
+                    }
+                    RayTracer.Renderer renderer = new RayTracer.Renderer(scene, scene.allObjects);
+                    renderer.ct = ct;
+                    Console.WriteLine("Raytracing started.");
+                    int time = Environment.TickCount;
+                    RayTracer.RenderWindow window = renderer.Render();
+                    if (ct.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                    time = -time + Environment.TickCount;
+                    Console.WriteLine("Raytracing finished.");
+                    window.ShowImage();
+                    Console.WriteLine("Intersection calculating time: \t" + scene.intersectionCalculationCount + "\nRender time: \t\t" + time + "ms");
+                    window.ShowDialog();
+                }, ct);
                 button.Content = "Cancel";
             } else
             {
+                // Can't wait anymore => cancel this task 
+                ts.Cancel();
                 button.Content = "Render";
             }
         }
@@ -228,60 +313,100 @@ namespace UI
         #region Objects
         private void CreateBlock()
         {
-            DragCanvas canvas = (DragCanvas)this.FindName("canvas");
-            Rectangle rect = new Rectangle();
-            rect.Stroke = new SolidColorBrush(Colors.Black);
             int r = rnd.Next(256);
             int g = rnd.Next(256);
             int b = rnd.Next(256);
-            rect.Fill = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
-            rect.Width = 100;
-            rect.Height = 50;
-            rect.Name = "Rectangle" + rectangleCount;
+            
             RayTracer.Block block;
             if (currentView == View.FRONT)
             {
-                block = new RayTracer.Block(0, 0, 0, (int)rect.Width, (int)rect.Height, 5);
+                block = new RayTracer.Block(0, 0, 0, (int)4, (int)2, 5);
             }
             else if (currentView == View.TOP)
             {
-                block = new RayTracer.Block(0, 0, 0, (int)rect.Width, 5, (int)rect.Height);
+                block = new RayTracer.Block(0, 0, 0, (int)4, 5, (int)2);
             }
             else
             {
-                block = new RayTracer.Block(0, 0, 0, 5, (int)rect.Height, (int)rect.Width);
+                block = new RayTracer.Block(0, 0, 0, 5, (int)4, (int)2);
             }
             block.SetColor((float)(r / 256.0), (float)(g / 256.0), (float)(b / 256.0));
+            CreateBlock(block);
+        }
+
+        private void CreateBlock(RayTracer.Block block)
+        {
+            DragCanvas canvas = (DragCanvas)this.FindName("canvas");
+            Rectangle rect = new Rectangle();
+            rect.Stroke = new SolidColorBrush(Colors.Black);
+            int r = (int)(block.color.r * 256);
+            int g = (int)(block.color.g * 256);
+            int b = (int)(block.color.b * 256);
+            rect.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)r, (byte)g, (byte)b));
+            
+            rect.Name = "Rectangle" + rectangleCount;
+
+            if (currentView == View.FRONT)
+            {
+                rect.Width = block.getWidth() * CANVAS_SCALE;
+                rect.Height = block.getHeight() * CANVAS_SCALE;
+                Canvas.SetLeft(rect, block.a.X * CANVAS_SCALE);
+                Canvas.SetTop(rect, block.a.Y * CANVAS_SCALE);
+            }
+            else if (currentView == View.TOP)
+            {
+                rect.Width = block.getWidth() * CANVAS_SCALE;
+                rect.Height = block.getDepth() * CANVAS_SCALE;
+                Canvas.SetLeft(rect, block.c.X * CANVAS_SCALE);
+                Canvas.SetTop(rect, block.c.Z * CANVAS_SCALE);
+            }
+            else
+            {
+                rect.Width = block.getDepth() * CANVAS_SCALE;
+                rect.Height = block.getHeight() * CANVAS_SCALE;
+                Canvas.SetLeft(rect, block.b.Z * CANVAS_SCALE);
+                Canvas.SetTop(rect, block.b.Y * CANVAS_SCALE);
+            }
             objects[rect.Name] = block;
 
-            Canvas.SetLeft(rect, 0);
-            Canvas.SetTop(rect, 0);
+            
             canvas.Children.Add(rect);
             list.Add(rect);
             AddAndSelectObject(rect);
             rectangleCount++;
         }
 
+
         private void CreateEllipse()
+        {
+            int r = rnd.Next(256);
+            int g = rnd.Next(256);
+            int b = rnd.Next(256);
+            float diameter = 5;
+           
+            RayTracer.Sphere sphere = new RayTracer.Sphere(-1, new RayTracer.Point(2.5f, 2.5f, 2.5f), diameter);
+            sphere.SetColor((float)(r / 256.0), (float)(g / 256.0), (float)(b / 256.0));
+            CreateEllipse(sphere);
+        }
+
+        private void CreateEllipse(RayTracer.Sphere sphere)
         {
             DragCanvas canvas = (DragCanvas)this.FindName("canvas");
             Ellipse ellipse = new Ellipse();
             ellipse.Stroke = new SolidColorBrush(Colors.Black);
-            int r = rnd.Next(256);
-            int g = rnd.Next(256);
-            int b = rnd.Next(256);
-            ellipse.Fill = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
-            float diameter = 50;
+            int r = (int)(sphere.color.r * 256);
+            int g = (int)(sphere.color.g * 256);
+            int b = (int)(sphere.color.b * 256);
+            ellipse.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)r, (byte)g, (byte)b));
+            float diameter = (float)(sphere.diameter * CANVAS_SCALE);
             ellipse.Width = diameter;
             ellipse.Height = diameter;
             ellipse.Name = "Ellipse" + ellipseCount;
 
-            RayTracer.Sphere sphere = new RayTracer.Sphere(-1, new RayTracer.Point(2.5f, 2.5f, 2.5f), diameter);
-            sphere.SetColor((float)(r / 256.0), (float)(g / 256.0), (float)(b / 256.0));
             objects[ellipse.Name] = sphere;
 
-            Canvas.SetLeft(ellipse, 0);
-            Canvas.SetTop(ellipse, 0);
+            Canvas.SetLeft(ellipse, sphere.xPos * CANVAS_SCALE);
+            Canvas.SetTop(ellipse, sphere.yPos * CANVAS_SCALE);
             canvas.Children.Add(ellipse);
 
             list.Add(ellipse);
@@ -311,7 +436,6 @@ namespace UI
                 selected.StrokeDashArray = null;
             }
             this.selected = shape;
-
             SetObjectNameLabel(shape.Name);
             // Show selection
             shape.StrokeDashArray = new DoubleCollection(new double[] { 4.0, 4.0 });
@@ -331,6 +455,7 @@ namespace UI
                 sw.Visibility = Visibility.Visible;
             }
             FillValues(shape);
+           
         }
 
         public void FillValues(Shape shape, bool dropped = false, bool first = false)
@@ -682,7 +807,7 @@ namespace UI
                         int colorR = Int32.Parse(r.Text);
                         int colorG = Int32.Parse(g.Text);
                         int colorB = Int32.Parse(b.Text);
-                        selected.Fill = new SolidColorBrush(Color.FromRgb((byte)colorR, (byte)colorG, (byte)colorB));
+                        selected.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)colorR, (byte)colorG, (byte)colorB));
                         RayTracer.AObject aObject = objects[selected.Name];
                         aObject.SetColor((float)(colorR / 256.0), (float)(colorG / 256.0), (float)(colorB / 256.0));
                     }

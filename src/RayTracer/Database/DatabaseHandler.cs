@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -7,19 +8,30 @@ using static RayTracer.Database.SceneDatabase;
 
 namespace RayTracer.Database
 {
-    class DatabaseHandler
+    public class DatabaseHandler
     {
         private static string FILENAME = "database.xml";
-        public SceneDatabase Load(string path)
+        public static SceneDatabase Load(string path)
         {
             DataSet sceneDatabase = new DataSet();
-            DataTableHelper.ReadXmlIntoDataSet(sceneDatabase, path + FILENAME);
+            DataTableHelper.ReadXmlIntoDataSet(sceneDatabase, path);
             return (SceneDatabase) sceneDatabase;
         }
 
-        public void Save(DataSet sceneDatabase, string path)
+        public static void Save(DataSet sceneDatabase, string path)
         {
-            DataTableHelper.WriteDataSetToXML(sceneDatabase, path + FILENAME);
+            System.IO.FileInfo fInfo = new System.IO.FileInfo(path);
+            if (fInfo.Name == "")
+            {
+                if (path.EndsWith("/") || path.EndsWith("\\"))
+                {
+                    path += FILENAME;
+                } else
+                {
+                    path += "/" + FILENAME;
+                }
+            }
+            DataTableHelper.WriteDataSetToXML(sceneDatabase, path);
         }
 
         public static void CreateTestProject(SceneDatabase sceneDatabase)
@@ -37,6 +49,45 @@ namespace RayTracer.Database
             sceneDatabase.AcceptChanges();
         }
 
+        public static void Save(Scene scene, string path)
+        {
+            SceneDatabase sceneDatabase = new SceneDatabase();
+            int sceneID = InsertScene(sceneDatabase);
+            foreach (AObject aObject in scene.allObjects)
+            {
+                if (aObject.GetType() == typeof(Floor))
+                {
+                    Floor floor = (Floor)aObject;
+                    sceneDatabase.Floor.Rows.Add(new Object[] { null, sceneID, floor.a.X.ToString(CultureInfo.InvariantCulture) +";"+ floor.a.Y.ToString(CultureInfo.InvariantCulture) + ";"+ floor.a.Z.ToString(CultureInfo.InvariantCulture),
+                        floor.c.X.ToString(CultureInfo.InvariantCulture) +";"+ floor.c.Y.ToString(CultureInfo.InvariantCulture) + ";"+ floor.c.Z.ToString(CultureInfo.InvariantCulture), floor.kd, floor.ks, floor.kt, "1;1;1", "0;0;0" });
+                }
+                else if (aObject.GetType() == typeof(Sphere))
+                {
+                    Sphere sphere = (Sphere)aObject;
+                    sceneDatabase.Sphere.Rows.Add(new Object[] { null, sceneID, sphere.xPos.ToString(CultureInfo.InvariantCulture) + ";" + sphere.yPos.ToString(CultureInfo.InvariantCulture) + ";" + sphere.zPos.ToString(CultureInfo.InvariantCulture),
+                        sphere.diameter.ToString(CultureInfo.InvariantCulture), sphere.kd, sphere.ks, sphere.kt, sphere.color.r.ToString(CultureInfo.InvariantCulture) + ";" + sphere.color.g.ToString(CultureInfo.InvariantCulture) + ";" + sphere.color.b.ToString(CultureInfo.InvariantCulture) });
+
+                }
+                else if (aObject.GetType() == typeof(Block))
+                {
+                    Block block = (Block)aObject;
+
+                    sceneDatabase.Block.Rows.Add(new Object[] { null, sceneID, block.a.X.ToString(CultureInfo.InvariantCulture) + ";" + block.a.Y.ToString(CultureInfo.InvariantCulture) + ";" + block.a.Z.ToString(CultureInfo.InvariantCulture),
+                        block.c1.X.ToString(CultureInfo.InvariantCulture) + ";" + block.c1.Y.ToString(CultureInfo.InvariantCulture) + ";" + block.c1.Z.ToString(CultureInfo.InvariantCulture), block.kd, block.ks, block.kt, block.color.r.ToString(CultureInfo.InvariantCulture) + ";" + block.color.g.ToString(CultureInfo.InvariantCulture) + ";" + block.color.b.ToString(CultureInfo.InvariantCulture) });
+                }
+            }
+            Camera camera = scene.camera;
+            
+            sceneDatabase.Camera.Rows.Add(new Object[] { null, sceneID, camera.location.X.ToString(CultureInfo.InvariantCulture) + ";" + camera.location.Y.ToString(CultureInfo.InvariantCulture) + ";" + camera.location.Z.ToString(CultureInfo.InvariantCulture),
+                camera.direction.x.ToString(CultureInfo.InvariantCulture) + ";" + camera.direction.y.ToString(CultureInfo.InvariantCulture) + ";" + camera.direction.z.ToString(CultureInfo.InvariantCulture),
+               camera.up.x.ToString(CultureInfo.InvariantCulture) + ";" + camera.up.y.ToString(CultureInfo.InvariantCulture) + ";" + camera.up.z.ToString(CultureInfo.InvariantCulture), camera.fovy });
+
+            Light light = scene.light;
+            sceneDatabase.Light.Rows.Add(new Object[] { null, sceneID, camera.location.X.ToString(CultureInfo.InvariantCulture) + ";" + camera.location.Y.ToString(CultureInfo.InvariantCulture) + ";" + camera.location.Z.ToString(CultureInfo.InvariantCulture), 1, "0;0;0" });
+
+            DatabaseHandler.Save(sceneDatabase, path);
+        }
+
         public static int InsertScene(SceneDatabase sceneDatabase)
         {
             SceneRow row = sceneDatabase._Scene.NewSceneRow();
@@ -50,7 +101,7 @@ namespace RayTracer.Database
 
 
     // Use WriteXml method to export the dataset.  
-    static class DataTableHelper
+    public static class DataTableHelper
     {
         public static void WriteDataSetToXML(DataSet dataset, String xmlFileName)
         {

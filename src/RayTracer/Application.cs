@@ -17,7 +17,7 @@ namespace RayTracer
 
             DatabaseHandler.CreateTestProject(sceneDatabase);
 
-            databaseHandler.Save(sceneDatabase, ""); // Removed so the xml can be manipulated
+            DatabaseHandler.Save(sceneDatabase, ""); // Removed so the xml can be manipulated
 
             DataSet data = new DataSet();
             DataTableHelper.ReadXmlIntoDataSet(data, "database.xml");

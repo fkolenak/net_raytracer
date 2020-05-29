@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RayTracer
@@ -15,7 +16,6 @@ namespace RayTracer
         /// </summary>
         private const int power = 100;
 
-        public bool stopRender = false;
         /// <summary>
         /// Scene to render
         /// </summary>
@@ -32,6 +32,7 @@ namespace RayTracer
         /// Objects to render
         /// </summary>
         private List<AObject> renderedObjects;
+        public CancellationToken ct;
 
         public Renderer(Scene s, List<AObject> renderedObjects)
         {
@@ -64,11 +65,15 @@ namespace RayTracer
             //for (int i = 0; i < height; i++)
             Parallel.For(0, height, i =>      //Cycle
             {
+                if (ct.IsCancellationRequested)
+                {
+                    return;
+                }
                 for (int j = 0; j < width; j++)    //Cycle
                 {
-                    if (stopRender)
+                    if (ct.IsCancellationRequested)
                     {
-                        break;
+                        return;
                     }
                     Intersection p;
                     Color c;
@@ -118,7 +123,7 @@ namespace RayTracer
                 }
             });
             //}
-            if (stopRender)
+            if (ct.IsCancellationRequested)
             {
                 return null;
             }

@@ -9,7 +9,7 @@ namespace RayTracer
     /// <summary>
     /// Parser
     /// </summary>
-    class Parser
+    public class Parser
     {
         private static NumberFormatInfo f = CultureInfo.InvariantCulture.NumberFormat;
 
