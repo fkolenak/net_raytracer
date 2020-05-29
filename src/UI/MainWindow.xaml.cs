@@ -35,6 +35,8 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
+            Button front = (Button)this.FindName("viewButtonFront");
+            front.Foreground = new SolidColorBrush(Colors.Black);
 
             TextBox positionZ, depth;
             positionZ = (TextBox)this.FindName("positionZ");
@@ -85,6 +87,9 @@ namespace UI
         {
             if (currentView != View.FRONT)
             {
+                ResetButtonsFont();
+                Button button = (Button)sender;
+                button.Foreground = new SolidColorBrush(Colors.Red);
                 EnableAllTextBoxes();
                 TextBox positionZ, depth;
                 positionZ = (TextBox)this.FindName("positionZ");
@@ -99,6 +104,9 @@ namespace UI
         {
             if (currentView != View.TOP)
             {
+                ResetButtonsFont();
+                Button button = (Button)sender;
+                button.Foreground = new SolidColorBrush(Colors.Red);
                 EnableAllTextBoxes();
                 TextBox positionY, height;
                 positionY = (TextBox)this.FindName("positionY");
@@ -114,6 +122,9 @@ namespace UI
         {
             if (currentView != View.RIGHT)
             {
+                ResetButtonsFont();
+                Button button = (Button)sender;
+                button.Foreground = new SolidColorBrush(Colors.Red);
                 EnableAllTextBoxes();
                 TextBox positionX, width;
                 positionX = (TextBox)this.FindName("positionX");
@@ -125,6 +136,16 @@ namespace UI
             }
         }
 
+        private void ResetButtonsFont()
+        {
+            Button front = (Button)this.FindName("viewButtonFront");
+            Button top = (Button)this.FindName("viewButtonTop");
+            Button right = (Button)this.FindName("viewButtonRight");
+
+            front.Foreground = new SolidColorBrush(Colors.Black);
+            top.Foreground = new SolidColorBrush(Colors.Black);
+            right.Foreground = new SolidColorBrush(Colors.Black);
+        }
         private void EnableAllTextBoxes()
         {
             TextBox positionX, positionY, positionZ, width, height, depth;
@@ -167,7 +188,6 @@ namespace UI
             else if (currentView == View.TOP)
             {
                 block = new RayTracer.Block(0, 0, 0, (int)rect.Width, 5, (int)rect.Height);
-
             }
             else
             {
